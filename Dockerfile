@@ -45,3 +45,5 @@ RUN /bin/bash -c "( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | /opt/sd
 
 USER nativescript
 WORKDIR /home/nativescript
+
+USER root
