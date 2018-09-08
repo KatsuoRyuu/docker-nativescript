@@ -31,11 +31,11 @@ RUN apt-get install -y --no-install-recommends nodejs npm unzip
 
 RUN useradd -ms /bin/bash nativescript
 
-echo y | npm install nativescript --unsafe-perm
+RUN echo y | npm install nativescript --unsafe-perm
 
-wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/
-( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | /opt/sdkmanager/tools/android update sdk --no-ui -a --filter platform-tool,build-tools-22.0.1,android-22
+RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+RUN unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/
+RUN /bin/bash -c "( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | /opt/sdkmanager/tools/android update sdk --no-ui -a --filter platform-tool,build-tools-22.0.1,android-22"
 
 
 USER nativescript
