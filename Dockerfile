@@ -40,7 +40,11 @@ RUN /bin/bash -c "if [ ! `which tns` ]; then echo 'unable to find tns'; exit 1; 
 
 RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
 RUN unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/
-RUN /bin/bash -c "( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | /opt/sdkmanager/tools/android update sdk --no-ui -a --filter platform-tool,build-tools-22.0.1,android-22"
+
+ENV ANDROID_HOME /opt/sdkmanager/
+ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+RUN /bin/bash -c "( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | /opt/sdkmanager/tools/android update sdk --no-ui -a --filter platform-tool,build-tools-22.0.1,build-tools-26.0.3,build-tools-27.0.3,android-22,android-26,android-27"
 
 
 USER nativescript
