@@ -34,7 +34,8 @@ RUN useradd -ms /bin/bash nativescript
 RUN /bin/bash
 RUN echo $0
 
-RUN /bin/bash -c "echo y | npm install nativescript --unsafe-perm"
+RUN /bin/bash -c "echo y | npm install nativescript"; exit 0;
+RUN /bin/bash -c "if [ -d /root/.npm/_logs/ ]; then cat /root/.npm/_logs/*; fi"
 
 RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
 RUN unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/
