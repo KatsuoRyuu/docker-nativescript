@@ -27,14 +27,14 @@ RUN apt-get install -y default-jdk-headless
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
-RUN apt-get install -y -g --no-install-recommends nodejs npm unzip
+RUN apt-get install -y --no-install-recommends nodejs npm unzip
 
 RUN useradd -ms /bin/bash nativescript
 
 RUN /bin/bash
 RUN echo $0
 
-RUN /bin/bash -c "echo y | npm install nativescript"; exit 0;
+RUN /bin/bash -c "echo y | npm install -g nativescript"; exit 0;
 RUN /bin/bash -c "if [ -d /root/.npm/_logs/ ]; then cat /root/.npm/_logs/*; fi"
 RUN /bin/bash -c "if [ ! `which tns` ]; then echo 'unable to find tns'; exit 1; fi"
 
