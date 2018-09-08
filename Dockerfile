@@ -27,7 +27,7 @@ RUN apt-get install -y default-jdk-headless
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
-RUN apt-get install -y --no-install-recommends nodejs npm
+RUN apt-get install -y --no-install-recommends nodejs npm unzip
 RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
 RUN unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/
 RUN /opt/sdkmanager/tools/android update sdk --no-ui -a --filter platform-tool,build-tools-22.0.1,android-22
