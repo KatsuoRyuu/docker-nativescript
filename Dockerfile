@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates-java \
     gnupg1
 
-RUN apt-get -t stretch-backports install -y default-jdk-headless
+RUN apt-get install -y default-jdk-headless
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
