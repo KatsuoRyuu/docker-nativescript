@@ -13,6 +13,8 @@ variables:
 before_script:
 - echo $CI_REGISTRY
 - echo $CI_REGISTRY_IMAGE
+- echo $CI_JOB_TOKEN
+- echo "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY"
 - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 - apt-get update && apt-get install -y git
 - export TIME=$(git show -s --format=%ad --date=format:'%Y%m%d%H%M%S' $CI_COMMIT_SHA) 
