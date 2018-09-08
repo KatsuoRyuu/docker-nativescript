@@ -31,6 +31,9 @@ RUN apt-get install -y --no-install-recommends nodejs npm unzip
 
 RUN useradd -ms /bin/bash nativescript
 
+RUN /bin/bash
+RUN echo $0
+
 RUN echo y | npm install nativescript --unsafe-perm
 
 RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
