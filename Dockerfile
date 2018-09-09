@@ -23,7 +23,8 @@ RUN apt-get update && apt-get install -y \
     ca-certificates-java \
     gnupg1 \
     openssh-client \
-    git
+    git \
+     >> /tmp/apt-get.log
 
 RUN apt-get install -y default-jdk-headless
 
@@ -36,12 +37,13 @@ RUN useradd -ms /bin/bash nativescript
 RUN /bin/bash
 RUN echo $0
 
-RUN /bin/bash -c "echo y | npm install -g nativescript"; exit 0;
+RUN /bin/bash -c "echo y | npm install -g nativescript >> /tmp/npm.log"; exit 0;
+RUN /bin/bash -c "if [ -f /tmp/npm.log ]; then cat /tmp/npm.log; fi"
 RUN /bin/bash -c "if [ -d /root/.npm/_logs/ ]; then cat /root/.npm/_logs/*; fi"
 RUN /bin/bash -c "if [ ! `which tns` ]; then echo 'unable to find tns'; exit 1; fi"
 
 RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-RUN unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/
+RUN unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/ >> /tmp/sdkmanager.unzip.log
 
 ENV ANDROID_HOME /opt/sdkmanager/
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin
@@ -50,7 +52,7 @@ RUN echo 'export ANDROID_HOME=/opt/sdkmanager' >> /etc/profile
 RUN echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin' >> /etc/profile
 
 RUN touch /tmp/sdkmanager.log
-RUN /bin/bash -c 'yes | sdkmanager --licenses'
+RUN /bin/bash -c 'yes | sdkmanager --licenses >> /tmp/sdkmanager.log'
 RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | sdkmanager --install "tools" "platform-tools" >> /tmp/sdkmanager.log'
 RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | sdkmanager --install "extras;android;m2repository" >> /tmp/sdkmanager.log'
 RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | sdkmanager --install "build-tools;22.0.1" "platforms;android-22" >> /tmp/sdkmanager.log'
