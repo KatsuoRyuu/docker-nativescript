@@ -47,12 +47,12 @@ ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 RUN echo 'export ANDROID_HOME=/opt/sdkmanager' >> /etc/profile
 RUN echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools' >> /etc/profile
 
-RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter tools,platform-tools,platform-tool"
-RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter extra-android-m2repository"
-RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter build-tools-22.0.1,android-22"
-RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter build-tools-23.0.2,android-23"
-RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter build-tools-26.0.3,android-26"
-RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter build-tools-27.0.3,android-27"
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter tools,platform-tools,platform-tool'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter extra-android-m2repository'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter build-tools-22.0.1,android-22'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter build-tools-23.0.2,android-23'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter build-tools-26.0.3,android-26'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter build-tools-27.0.3,android-27'
 
 USER nativescript
 WORKDIR /home/nativescript
