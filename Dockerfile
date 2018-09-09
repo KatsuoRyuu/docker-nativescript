@@ -42,17 +42,19 @@ RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
 RUN unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/
 
 ENV ANDROID_HOME /opt/sdkmanager/
-ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin
 
 RUN echo 'export ANDROID_HOME=/opt/sdkmanager' >> /etc/profile
-RUN echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools' >> /etc/profile
+RUN echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin' >> /etc/profile
 
-RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter tools,platform-tools,platform-tool'
-RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter extra-android-m2repository'
-RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter build-tools-22.0.1,android-22'
-RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter build-tools-23.0.2,android-23'
-RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter build-tools-26.0.3,android-26'
-RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | android update sdk  --all --no-ui --filter build-tools-27.0.3,android-27'
+RUN touch /tmp/sdkmanager.log
+RUN /bin/bash -c 'yes | sdkmanager --licenses'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | sdkmanager --install "tools" "platform-tools" >> /tmp/sdkmanager.log'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | sdkmanager --install "extras;android;m2repository" >> /tmp/sdkmanager.log'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | sdkmanager --install "build-tools;22.0.1" "platforms;android-22" >> /tmp/sdkmanager.log'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | sdkmanager --install "build-tools;23.0.2" "platforms;android-23" >> /tmp/sdkmanager.log'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | sdkmanager --install "build-tools;26.0.3" "platforms;android-26" >> /tmp/sdkmanager.log'
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | sdkmanager --install "build-tools;27.0.3" "platforms;android-27" >> /tmp/sdkmanager.log'
 
 USER nativescript
 WORKDIR /home/nativescript
