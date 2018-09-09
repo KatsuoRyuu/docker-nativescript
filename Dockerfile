@@ -21,7 +21,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     ca-certificates-java \
-    gnupg1
+    gnupg1 \
+    openssh-client \
+    git
 
 RUN apt-get install -y default-jdk-headless
 
