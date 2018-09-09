@@ -44,8 +44,15 @@ RUN unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/
 ENV ANDROID_HOME /opt/sdkmanager/
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
-RUN /bin/bash -c "( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | /opt/sdkmanager/tools/android update sdk --no-ui -a --filter platform-tool,build-tools-22.0.1,build-tools-26.0.3,build-tools-27.0.3,android-22,android-26,android-27"
+RUN echo 'export ANDROID_HOME=/opt/sdkmanager' >> /etc/profile
+RUN echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools' >> /etc/profile
 
+RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter tools,platform-tools,platform-tool"
+RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter extra-android-m2repository"
+RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter build-tools-22.0.1,android-22"
+RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter build-tools-23.0.2,android-23"
+RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter build-tools-26.0.3,android-26"
+RUN /bin/bash -c "( for i in $(seq 1 10); do sleep 5; echo $i;  done ) | android update sdk  --all --no-ui --filter build-tools-27.0.3,android-27"
 
 USER nativescript
 WORKDIR /home/nativescript
