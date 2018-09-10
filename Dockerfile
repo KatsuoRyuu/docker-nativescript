@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openssh-client \
     git
 
-RUN apt-get install -y default-jdk-headless
+RUN apt-get install -y --no-install-recommends default-jdk-headless
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
