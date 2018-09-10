@@ -2,7 +2,9 @@ FROM node:10-stretch
 
 ENV ANDROID_HOME /opt/sdkmanager/
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin
-ENV TERM xterm-color
+ENV TERM xterm-colo
+
+RUN npm install -g nativescrip
 
 RUN apt-get update
 RUN mkdir -p /usr/share/man/man1
