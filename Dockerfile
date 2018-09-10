@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM ubuntu:latest 
 
 ENV ANDROID_HOME /opt/sdkmanager/
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin
