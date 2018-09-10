@@ -44,7 +44,7 @@ RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | npm inst
 #RUN /bin/bash -c "if [ -d /root/.npm/_logs/ ]; then cat /root/.npm/_logs/*; fi"
 RUN /bin/bash -c "if [ ! `which tns` ]; then echo 'unable to find tns'; fi"
 
-RUN wget –quiet https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip >> /tmp/sdkmanager.download.log
 RUN unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/ >> /tmp/sdkmanager.unzip.log
 
 ENV ANDROID_HOME /opt/sdkmanager/
