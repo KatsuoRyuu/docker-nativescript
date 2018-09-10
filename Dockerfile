@@ -5,17 +5,16 @@ RUN apt-get update
 RUN mkdir -p /usr/share/man/man1
 
 # Update image & install application dependant packages.
-RUN apt-get update && apt-get install -y \
-    nano \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libxext6 \
     libfreetype6-dev \
-    libjpeg62-turbo-dev \
+    libjpeg62-dev \
     libpng-dev \
     libmcrypt-dev \
-    libxslt-dev \
+    libxslt1-dev \
     libpcre3-dev \
     libxrender1 \
-    libfontconfig \
+    libfontconfig1 \
     uuid-dev \
     ghostscript \
     curl \
