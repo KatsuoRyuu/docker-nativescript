@@ -1,8 +1,20 @@
 FROM ubuntu:latest
 
+ENV ANDROID_HOME /opt/sdkmanager/
+ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin
+ENV TERM xterm-color
 
 RUN apt-get update
 RUN mkdir -p /usr/share/man/man1
+
+RUN apt-get update && apt-get install -y curl gnupg1
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install -y nodejs
+
+RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | npm install -g nativescript'; exit 0;
+RUN /bin/bash -c "if [ -f /tmp/npm.log ]; then cat /tmp/npm.log; fi"
+RUN /bin/bash -c "if [ -d /root/.npm/_logs/ ]; then cat /root/.npm/_logs/*; fi"
+RUN /bin/bash -c "if [ ! `which tns` ]; then echo 'unable to find tns'; fi"
 
 # Update image & install application dependant packages.
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -17,37 +29,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libfontconfig1 \
     uuid-dev \
     ghostscript \
-    curl \
     wget \
     ca-certificates-java \
-    gnupg1 \
     openssh-client \
-    git
+    git \
+    unzip
 
-RUN apt-get install -y --no-install-recommends default-jdk-headless
+RUN apt-get install -y default-jdk-headless
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
-RUN apt-get install -y --no-install-recommends nodejs npm unzip
-
 RUN useradd -ms /bin/bash nativescript
-
-RUN /bin/bash
-RUN echo $0
-
-ENV TERM xterm-color
-
-RUN echo y | npm install -g nativescript; exit 0;
-RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | npm install -g nativescript'; exit 0;
-RUN /bin/bash -c "if [ -f /tmp/npm.log ]; then cat /tmp/npm.log; fi"
-RUN /bin/bash -c "if [ -d /root/.npm/_logs/ ]; then cat /root/.npm/_logs/*; fi"
-RUN /bin/bash -c "if [ ! `which tns` ]; then echo 'unable to find tns'; fi"
 
 RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip >> /tmp/sdkmanager.download.log
 RUN unzip sdk-tools-linux-4333796.zip -d /opt/sdkmanager/ >> /tmp/sdkmanager.unzip.log
-
-ENV ANDROID_HOME /opt/sdkmanager/
-ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin
 
 RUN echo 'export ANDROID_HOME=/opt/sdkmanager' >> /etc/profile
 RUN echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin' >> /etc/profile
