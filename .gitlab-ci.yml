@@ -14,7 +14,7 @@ variables:
 #    CONTAINER_IMAGE: registry.git.ryuu.technology/$CI_PROJECT_PATH
 
 before_script:
-- export VERSION="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}+${CI_PIPELINE_ID}"
+- export VERSION="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}-${CI_PIPELINE_ID}"
 - echo $CI_REGISTRY
 - echo $CI_REGISTRY_IMAGE
 - echo $CI_JOB_TOKEN
