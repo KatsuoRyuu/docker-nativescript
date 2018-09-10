@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM node:latest
 
 ENV ANDROID_HOME /opt/sdkmanager/
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin
