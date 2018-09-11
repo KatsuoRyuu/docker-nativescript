@@ -1,4 +1,4 @@
-FROM ubuntu:latest 
+FROM debian:stretch-slim 
 
 ENV ANDROID_HOME /opt/sdkmanager/
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin
@@ -22,13 +22,13 @@ RUN /bin/bash -c "if [ ! `which tns` ]; then echo 'unable to find tns'; fi"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libxext6 \
     libfreetype6-dev \
-    libjpeg62-dev \
+    libjpeg62-turbo-dev \
     libpng-dev \
     libmcrypt-dev \
-    libxslt1-dev \
+    libxslt-dev \
     libpcre3-dev \
     libxrender1 \
-    libfontconfig1 \
+    libfontconfig \
     uuid-dev \
     ghostscript \
     ca-certificates-java \
