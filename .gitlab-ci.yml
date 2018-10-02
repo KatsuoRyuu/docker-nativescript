@@ -28,8 +28,6 @@ build:
     script:
     - docker pull debian:latest
     - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$VERSION --tag $CI_REGISTRY_IMAGE:latest .
-    - echo "Due to an issue with BTRFS and NodeJS/NPM causing the Nativescript Installation to fail this will start the container and install Nativescript in /tmp (ext4)";
-    - docker tag runner-build-$CI_BUILD_REF $CI_REGISTRY_IMAGE:$VERSION
-    - docker tag runner-build-$CI_BUILD_REF $CI_REGISTRY_IMAGE:latest
     - docker push $CI_REGISTRY_IMAGE:$VERSION
     - docker push $CI_REGISTRY_IMAGE:latest
+
