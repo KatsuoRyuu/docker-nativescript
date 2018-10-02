@@ -13,7 +13,6 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 
 RUN echo y | npm install -g nativescript; exit 0;
-RUN /bin/bash -c '( for i in $(seq 1 10); do sleep 5; echo y;  done ) | npm install -g nativescript'; exit 0;
 RUN /bin/bash -c "if [ -f /tmp/npm.log ]; then cat /tmp/npm.log; fi"
 RUN /bin/bash -c "if [ -d /root/.npm/_logs/ ]; then cat /root/.npm/_logs/*; fi"
 RUN /bin/bash -c "if [ ! `which tns` ]; then echo 'unable to find tns'; fi"
