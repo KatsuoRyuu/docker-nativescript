@@ -33,7 +33,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates-java \
     openssh-client \
     git \
-    unzip
+    unzip \
+    inkscape
 
 RUN apt-get install -y default-jdk-headless
 
